@@ -1,0 +1,33 @@
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filter-btn {
+    background-color: #f9f9ff;
+    padding: 15px;
+    border: 1px solid #efefef;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background-color: #f0f8ff;
+}
+
+.sort-by {
+    font-size: 14px;
+    color: gray;
+    margin-right: 20px;
+}
+
+/* .active {
+    background-color: rgb(94, 196, 255);
+    color: #fff;
+    border: none;
+} */
