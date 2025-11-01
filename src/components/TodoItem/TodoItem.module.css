@@ -1,0 +1,96 @@
+.item {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px;
+    border: 1px solid #efefef;
+    border-radius: 15px;
+}
+
+.checkbox {
+    margin-right: 20px;
+    width: 22px;
+    height: 22px; 
+    border-radius: 50%;
+    border: 2px solid #d8d8d8;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.2s ease;
+}
+
+.checkbox:checked {
+    background-color: rgb(94, 196, 255);
+    border-color: rgb(94, 196, 255);
+}
+
+.checkbox:checked::before {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox:hover {
+    border-color: rgb(94, 196, 255);
+    transform: scale(1.1);
+}
+
+.item-info {
+    margin-right: auto;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text {
+    margin: 0;
+}
+
+.priority {
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid orange;
+    color: orange;
+    border-radius: 15px;
+    padding: 2px 5px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit, .delete {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 8px; 
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit svg, .delete svg {
+    width: 22px;
+    height: 22px;
+}
+
+.edit:hover {
+    background-color: #f0f8ff; 
+}
+
+.delete:hover {
+    background-color: #fff0f0;
+}

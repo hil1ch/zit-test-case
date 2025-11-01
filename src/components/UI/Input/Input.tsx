@@ -1,16 +1,15 @@
-import styles from "./Input.module.css";
-
 interface IInput {
   placeholder?: string;
   value: string;
   type: string;
+  className: string;
   onChange?: () => void;
 }
 
-export function Input({ placeholder, value, type, onChange }: IInput) {
+export function Input({ placeholder, value, type, className, onChange }: IInput) {
   return (
     <input
-      className={styles["input"]}
+      className={className}
       placeholder={placeholder}
       value={value}
       type={type}

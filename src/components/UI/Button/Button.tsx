@@ -1,17 +1,17 @@
 import type { ReactNode } from "react";
-import styles from "./Button.module.css";
 
 type TButton = "button" | "submit" | "reset";
 
 interface IButton {
   children: ReactNode;
   type: TButton;
+  className: string;
   onClick?: () => void;
 }
 
-export function Button({ children, type, onClick }: IButton) {
+export function Button({ children, type, className, onClick }: IButton) {
   return (
-    <button className={styles["button"]} type={type} onClick={onClick}>
+    <button className={className} type={type} onClick={onClick}>
       {children}
     </button>
   );
