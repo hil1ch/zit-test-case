@@ -1,12 +1,12 @@
 import type { Priority } from "../components/TodoItem/TodoItem"
 
-export const getPriotiryColor = (priority: Priority) => {
-    switch (priority) {
-        case 'High':
-            return 'red'
-        case 'Medium':
-            return 'orange'
-        case 'Low':
-            return 'green'
-    }
-}
+export const getPriorityColor = (priority: Priority) => {
+  switch (priority) {
+    case 'High':
+      return { color: '#ff4444' };
+    case 'Medium':
+      return { color: '#ffaa00' };
+    case 'Low':
+      return { color: '#00c851' };
+  }
+};

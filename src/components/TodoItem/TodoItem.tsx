@@ -1,3 +1,4 @@
+import { getPriorityColor } from "../../utils/getPriorityColor";
 import { Button } from "../UI/Button/Button";
 import { Input } from "../UI/Input/Input";
 import styles from "./TodoItem.module.css";
@@ -13,8 +14,12 @@ export interface ITodo {
 }
 
 export function TodoItem({ text, priority }: ITodo) {
+  const { color } = getPriorityColor(priority);
+
   return (
-    <div className={styles["item"]}>
+    <div className={styles["item"]} style={{
+        '--priority-color': color,
+      } as React.CSSProperties}>
       <Input className={styles["checkbox"]} type="checkbox" />
       <div className={styles['item-info']}>
         <p className={styles["text"]}>{text}</p>

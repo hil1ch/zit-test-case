@@ -40,3 +40,8 @@
 .add:hover {
     background-color: rgb(68, 186, 255);
 }
+
+.error {
+  border: 2px solid #ff4444;
+  background-color: #fff5f5;
+}

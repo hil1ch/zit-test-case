@@ -1,6 +1,7 @@
 import { useTodo } from "../../context/TodoContext";
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
+import noTodoImage from "../../assets/no-todo.svg";
 
 export function TodoList() {
   const { todos } = useTodo();
@@ -8,7 +9,11 @@ export function TodoList() {
   return (
     <>
       {todos.length === 0 ? (
-        <img className={styles["empty"]} src="src\assets\no-todo.svg"></img>
+        <img
+          className={styles["empty"]}
+          src={noTodoImage}
+          alt="Нет задач"
+        ></img>
       ) : (
         todos.map((todo) => (
           <TodoItem

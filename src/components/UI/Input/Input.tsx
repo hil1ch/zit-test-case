@@ -1,9 +1,9 @@
 interface IInput {
   placeholder?: string;
-  value: string;
+  value?: string;
   type: string;
   className: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function Input({ placeholder, value, type, className, onChange }: IInput) {

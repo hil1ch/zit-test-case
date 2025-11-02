@@ -12,10 +12,14 @@ interface ITodoContext {
   todos: ITodo[];
   newTodo: string;
   priority: Priority;
+  error: boolean;
+  setError: (error: boolean) => void;
+  setPriority: (priority: Priority) => void;
   addTodo: () => void;
   toggleTodo: (id: string) => void;
   updateTodo: (todo: ITodo) => void;
   deleteTodo: (id: string) => void;
+  setNewTodo: (newTodo: string) => void;
 }
 
 const TodoContext = createContext<ITodoContext | undefined>(undefined);
@@ -24,6 +28,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [newTodo, setNewTodo] = useState<string>("");
   const [priority, setPriority] = useState<Priority>("Medium");
+  const [error, setError] = useState(false);
 
   // Хранение todos в localStorage
   useEffect(() => {
@@ -63,8 +68,13 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const value: ITodoContext = {
     todos,
     newTodo,
+    error,
+    priority,
+    setError,
+    setPriority,
     addTodo,
-    toggleTodo
+    toggleTodo,
+    setNewTodo,
   };
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
