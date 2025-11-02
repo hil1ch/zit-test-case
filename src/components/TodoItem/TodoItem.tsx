@@ -3,11 +3,13 @@ import { Input } from "../UI/Input/Input";
 import styles from "./TodoItem.module.css";
 import { HiPencil, HiTrash } from "react-icons/hi";
 
-interface ITodo {
-  id?: number;
+export type Priority = "Low" | "Medium" | "High";
+
+export interface ITodo {
+  id?: string;
   text: string;
   completed?: boolean;
-  priority: string
+  priority: Priority
 }
 
 export function TodoItem({ text, priority }: ITodo) {
