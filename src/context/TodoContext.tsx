@@ -4,21 +4,27 @@ import {
   useEffect,
   useContext,
   type ReactNode,
+  useMemo,
 } from "react";
 import { type ITodo, type Priority } from "../components/TodoItem/TodoItem";
 import { v4 as uuidv4 } from "uuid";
 
+export type Filter = "Все" | "Завершенные";
+
 interface ITodoContext {
   todos: ITodo[];
+  filteredTodos: ITodo[];
   newTodo: string;
   priority: Priority;
   error: boolean;
+  filter: Filter;
   setError: (error: boolean) => void;
   setPriority: (priority: Priority) => void;
   addTodo: () => void;
   toggleTodo: (id: string) => void;
   updateTodo: (todo: ITodo) => void;
   deleteTodo: (id: string) => void;
+  setFilter: (filter: Filter) => void;
   setNewTodo: (newTodo: string) => void;
 }
 
@@ -28,6 +34,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [newTodo, setNewTodo] = useState<string>("");
   const [priority, setPriority] = useState<Priority>("Medium");
+  const [filter, setFilter] = useState<Filter>("Все");
   const [error, setError] = useState(false);
 
   // Хранение todos в localStorage
@@ -60,6 +67,17 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  // Фильтрация todos
+  const filteredTodos = useMemo(() => {
+    switch (filter) {
+      case "Завершенные":
+        return todos.filter(todo => todo.completed);
+      case "Все":
+      default:
+        return todos;
+    }
+  }, [todos, filter]);
+
   // Смена статуса
   const toggleTodo = (id: string) => {
     setTodos(
@@ -71,6 +89,8 @@ export function TodoProvider({ children }: { children: ReactNode }) {
 
   const value: ITodoContext = {
     todos,
+    filteredTodos,
+    filter,
     newTodo,
     error,
     priority,
@@ -78,6 +98,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setPriority,
     addTodo,
     deleteTodo,
+    setFilter,
     toggleTodo,
     setNewTodo,
   };

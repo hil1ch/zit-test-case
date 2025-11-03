@@ -14,15 +14,15 @@ export interface ITodo {
   priority: Priority
 }
 
-export function TodoItem({ text, priority, id }: ITodo) {
-  const {deleteTodo} = useTodo();
+export function TodoItem({ text, priority, id, completed }: ITodo) {
+  const {deleteTodo, toggleTodo} = useTodo();
   const { color } = getPriorityColor(priority);
 
   return (
     <div className={styles["item"]} style={{
         '--priority-color': color,
       } as React.CSSProperties}>
-      <Input className={styles["checkbox"]} type="checkbox" />
+      <Input className={styles["checkbox"]} type="checkbox" checked={completed} onChange={() => toggleTodo(id)}/>
       <div className={styles['item-info']}>
         <p className={styles["text"]}>{text}</p>
         <span className={styles['priority']}>{priority}</span>
