@@ -22,11 +22,31 @@ export function TodoItem({ text, priority, id, completed }: ITodo) {
     clickToEdit,
     editingId,
     editTodo,
+    error,
     cancelEdit,
     updateTodo,
     setEditTodo,
+    setEditError,
+    editError
   } = useTodo();
   const { color } = getPriorityColor(priority);
+
+  const handleUpdateTodo = () => {
+    if (editTodo.trim().length === 0) {
+      setEditError(true);
+      return;
+    }
+    setEditError(false);
+    updateTodo(id);
+  };
+
+  const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditTodo(e.target.value);
+
+    if (error && e.target.value.trim().length > 0) {
+      setEditError(false);
+    }
+  }
 
   return (
     <div
@@ -48,15 +68,15 @@ export function TodoItem({ text, priority, id, completed }: ITodo) {
           <div className={styles["edit-container"]}>
             <Input
               value={editTodo}
-              onChange={(e) => setEditTodo(e.target.value)}
-              className={styles["edit-input"]}
+              onChange={handleEditInputChange}
+              className={`${styles["edit-input"]} ${editError ? styles["error"] : ""}`}
               type="text"
             />
             <div className={styles["edit-actions"]}>
               <Button
                 type="button"
                 className={styles["save-btn"]}
-                onClick={() => updateTodo(id)}
+                onClick={handleUpdateTodo}
               >
                 <HiCheck />
               </Button>

@@ -151,3 +151,8 @@
 .delete:hover, .cancel-btn:hover {
     background-color: #fff0f0;
 }
+
+.error {
+  border: 2px solid #ff4444;
+  background-color: #fff5f5;
+}

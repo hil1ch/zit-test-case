@@ -20,6 +20,8 @@ interface ITodoContext {
   filter: Filter;
   editingId: string | null;
   editTodo: string;
+  editError: boolean;
+  setEditError: (editError: boolean) => void;
   setError: (error: boolean) => void;
   setPriority: (priority: Priority) => void;
   addTodo: () => void;
@@ -36,22 +38,19 @@ interface ITodoContext {
 const TodoContext = createContext<ITodoContext | undefined>(undefined);
 
 export function TodoProvider({ children }: { children: ReactNode }) {
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [todos, setTodos] = useState<ITodo[]>(() => {
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [newTodo, setNewTodo] = useState<string>("");
   const [priority, setPriority] = useState<Priority>("Medium");
   const [filter, setFilter] = useState<Filter>("Все");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTodo, setEditTodo] = useState<string>("");
   const [error, setError] = useState(false);
+  const [editError, setEditError] = useState(false);
 
   // Хранение todos в localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem("todos");
-    if (saved) {
-      setTodos(JSON.parse(saved));
-    }
-  }, []);
-
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -106,7 +105,6 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   };
 
   const updateTodo = (id: string) => {
-    if (editTodo.trim().length === 0) return;
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, text: editTodo.trim() } : todo
@@ -125,7 +123,9 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     priority,
     editingId,
     editTodo,
+    editError,
     setError,
+    setEditError,
     setPriority,
     addTodo,
     deleteTodo,
