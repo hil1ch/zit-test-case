@@ -18,13 +18,18 @@ interface ITodoContext {
   priority: Priority;
   error: boolean;
   filter: Filter;
+  editingId: string | null;
+  editTodo: string;
   setError: (error: boolean) => void;
   setPriority: (priority: Priority) => void;
   addTodo: () => void;
   toggleTodo: (id: string) => void;
-  updateTodo: (todo: ITodo) => void;
+  updateTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
   setFilter: (filter: Filter) => void;
+  clickToEdit: (todo: ITodo) => void;
+  cancelEdit: () => void;
+  setEditTodo: (editTodo: string) => void;
   setNewTodo: (newTodo: string) => void;
 }
 
@@ -35,6 +40,8 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const [newTodo, setNewTodo] = useState<string>("");
   const [priority, setPriority] = useState<Priority>("Medium");
   const [filter, setFilter] = useState<Filter>("Все");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTodo, setEditTodo] = useState<string>("");
   const [error, setError] = useState(false);
 
   // Хранение todos в localStorage
@@ -71,7 +78,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
   const filteredTodos = useMemo(() => {
     switch (filter) {
       case "Завершенные":
-        return todos.filter(todo => todo.completed);
+        return todos.filter((todo) => todo.completed);
       case "Все":
       default:
         return todos;
@@ -87,6 +94,28 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  // Изменение todo
+  const clickToEdit = (todo: ITodo) => {
+    setEditingId(todo.id);
+    setEditTodo(todo.text);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditTodo("");
+  };
+
+  const updateTodo = (id: string) => {
+    if (editTodo.trim().length === 0) return;
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, text: editTodo.trim() } : todo
+      )
+    );
+    setEditingId(null);
+    setEditTodo("");
+  };
+
   const value: ITodoContext = {
     todos,
     filteredTodos,
@@ -94,13 +123,19 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     newTodo,
     error,
     priority,
+    editingId,
+    editTodo,
     setError,
     setPriority,
     addTodo,
     deleteTodo,
     setFilter,
     toggleTodo,
+    clickToEdit,
+    cancelEdit,
+    updateTodo,
     setNewTodo,
+    setEditTodo
   };
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;

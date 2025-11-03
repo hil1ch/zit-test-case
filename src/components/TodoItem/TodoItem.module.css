@@ -10,10 +10,42 @@
     box-shadow: 0px 3px 7px -8px rgba(66, 68, 90, 1);
     border-left: 5px solid var(--priority-color);
     transition: all 0.3s ease-in-out;
+    max-width: 100%;
 }
 
 .item:hover {
     transform: scale(1.01);
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+.edit-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background-color: #fdfdff;
+  min-width: 0;
 }
 
 .checkbox {
@@ -51,16 +83,30 @@
     transform: scale(1.1);
 }
 
+.completed {
+    opacity: 50%;
+    text-decoration: line-through;
+}
+
 .item-info {
     margin-right: auto;
     text-align: start;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .text {
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
 }
 
 .priority {
@@ -75,13 +121,13 @@
     text-align: center;
 }
 
-.actions {
+.actions, .edit-actions {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.edit, .delete {
+.edit, .delete, .save-btn, .cancel-btn {
     background-color: #fff;
     border: none;
     cursor: pointer;
@@ -93,15 +139,15 @@
     justify-content: center;
 }
 
-.edit svg, .delete svg {
+.edit svg, .delete svg, .save-btn svg, .cancel-btn svg {
     width: 22px;
     height: 22px;
 }
 
-.edit:hover {
+.edit:hover, .save-btn:hover {
     background-color: #f0f8ff; 
 }
 
-.delete:hover {
+.delete:hover, .cancel-btn:hover {
     background-color: #fff0f0;
 }
