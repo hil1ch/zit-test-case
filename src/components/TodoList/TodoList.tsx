@@ -17,6 +17,7 @@ export function TodoList() {
       ) : (
         todos.map((todo) => (
           <TodoItem
+            id={todo.id}
             key={todo.id}
             text={todo.text}
             priority={todo.priority}

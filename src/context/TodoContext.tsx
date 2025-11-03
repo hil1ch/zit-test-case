@@ -56,6 +56,10 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setPriority("Medium");
   };
 
+  const deleteTodo = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   // Смена статуса
   const toggleTodo = (id: string) => {
     setTodos(
@@ -73,6 +77,7 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setError,
     setPriority,
     addTodo,
+    deleteTodo,
     toggleTodo,
     setNewTodo,
   };

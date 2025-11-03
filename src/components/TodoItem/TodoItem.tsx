@@ -1,3 +1,4 @@
+import { useTodo } from "../../context/TodoContext";
 import { getPriorityColor } from "../../utils/getPriorityColor";
 import { Button } from "../UI/Button/Button";
 import { Input } from "../UI/Input/Input";
@@ -7,13 +8,14 @@ import { HiPencil, HiTrash } from "react-icons/hi";
 export type Priority = "Low" | "Medium" | "High";
 
 export interface ITodo {
-  id?: string;
+  id: string;
   text: string;
   completed?: boolean;
   priority: Priority
 }
 
-export function TodoItem({ text, priority }: ITodo) {
+export function TodoItem({ text, priority, id }: ITodo) {
+  const {deleteTodo} = useTodo();
   const { color } = getPriorityColor(priority);
 
   return (
@@ -29,7 +31,7 @@ export function TodoItem({ text, priority }: ITodo) {
         <Button type="button" className={styles["edit"]}>
           <HiPencil />
         </Button>
-        <Button type="button" className={styles["delete"]}>
+        <Button type="button" className={styles["delete"]} onClick={() => deleteTodo(id)}>
           <HiTrash />
         </Button>
       </div>
